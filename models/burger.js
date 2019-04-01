@@ -1,25 +1,22 @@
 var orm=require("../config/orm.js");
 var burger={
-    insertOne: function(burgerName){
-        orm.insertOne("burgers",{burger_name:burgerName,devoured:0}, function(data){
-            // console.log(data);
-        });
+    insertOne: function(burgerName,cb){
+        orm.insertOne("burgers",{burger_name:burgerName,devoured:0},cb);
     },
-    selectAll:function(){
-        var data;
-        return orm.selectAll("burgers",function(resp){
-            // console.table(data);
-            //maybe replace this with an argument CB somehow
-            data=resp;
-        });
+    selectAll:function(cb){
+        // var data;
+        orm.selectAll("burgers",cb);
     },
-    updateOne:function(idToUpdate,updateObject){
-        orm.updateOne("burgers",updateObject,idToUpdate,function(data){
-            // console.log(data);
-        });
+    updateOne:function(idToUpdate,updateObject,cb){
+        orm.updateOne("burgers",updateObject,idToUpdate,cb);
     }
 };
 module.exports=burger;
-console.log(burger.selectAll());
+// burger.selectAll(function(data){
+//     console.table(data);
+// });
 // // burger.updateOne(1,{burger_name:"stupid"});
 // burger.selectAll();
+burger.updateOne(1,{devoured:false},function(data){
+    console.table(data);
+})

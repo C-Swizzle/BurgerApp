@@ -7,6 +7,14 @@
     <title>Document</title>
 </head>
 <body>
-    {{{body}}}
+    <ol>
+    {{#each data}}
+    {{#if devoured}}
+    <li style="text-decoration:line-through">{{burger_name}}</li>
+    {{else}}
+    <li>{{burger_name}}</li>
+    {{/if}}
+    {{/each}}
+    </ol>
 </body>
 </html>
