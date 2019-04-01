@@ -15,7 +15,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 
-
+require("./controllers/burgers_controller.js")(app);
 
 app.listen(PORT, function() {
     // Log (server-side) when our server has started
