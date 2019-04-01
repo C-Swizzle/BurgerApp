@@ -8,4 +8,11 @@ module.exports=function(app){
         })
         
     });
+    app.put("/api/:id",function(req,res){
+        console.log(req.body);
+        console.log(req.params);
+        burger.updateOne(req.params.id,req.body,function(){
+            res.status(202).end();
+        });
+    })
 };

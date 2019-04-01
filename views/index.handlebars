@@ -5,16 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+     rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+     <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 </head>
 <body>
-    <ol>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"><ol>
     {{#each data}}
-    {{#if devoured}}
-    <li style="text-decoration:line-through">{{burger_name}}</li>
-    {{else}}
-    <li>{{burger_name}}</li>
-    {{/if}}
+    {{#unless devoured}}
+    <li class="text-center">{{burger_name}}
+    <button data-id={{id}} class="ml-4 btn btn-primary devour-button">Devour It!</button></li>
+    {{/unless}}
     {{/each}}
     </ol>
+            </div>
+             <div class="col-md-4"><!--This intentionally left empty--></div>
+            <div class="col-md-4"><ol>
+    {{#each data}}
+    {{#if devoured}}
+    <li style="text-decoration:line-through" class="text-center">{{burger_name}}</li>
+    {{/if}}
+    {{/each}}
+    </ol></div>
+           
+
+            
+        </div>
+    </div>
+    
 </body>
+<script>
+    $(document).ready(function(){
+        $(".devour-button").on("click",function(e){
+            e.preventDefault();
+            var id=$(this).data("id");
+            console.log(id);
+            var url="/api/"+id;
+            $.ajax({url:url,method:"PUT",data:{devoured:1}}).then(function(response){
+                console.log(response);
+            });
+        })
+    });
+</script>
 </html>

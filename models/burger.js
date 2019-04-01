@@ -17,6 +17,5 @@ module.exports=burger;
 // });
 // // burger.updateOne(1,{burger_name:"stupid"});
 // burger.selectAll();
-burger.updateOne(1,{devoured:false},function(data){
-    console.table(data);
-})
+burger.updateOne(1,{devoured:false},function(){}
+);

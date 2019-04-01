@@ -19,9 +19,9 @@ var orm = {
         });
 
     },
-    updateOne: function(tableName,insertObject,idToSetObject,cb){
+    updateOne: function(tableName,insertObject,idToSet,cb){
         var queryStr="UPDATE ?? SET ? WHERE ?";
-        connection.query(queryStr,[tableName,insertObject,idToSetObject],function(err,data){
+        connection.query(queryStr,[tableName,insertObject,{id:idToSet}],function(err,data){
             if(err){
                 console.log(err);
             }
