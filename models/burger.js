@@ -6,9 +6,11 @@ var burger={
         });
     },
     selectAll:function(){
-        orm.selectAll("burgers",function(data){
-            console.table(data);
-            return data;
+        var data;
+        return orm.selectAll("burgers",function(resp){
+            // console.table(data);
+            //maybe replace this with an argument CB somehow
+            data=resp;
         });
     },
     updateOne:function(idToUpdate,updateObject){
@@ -18,6 +20,6 @@ var burger={
     }
 };
 module.exports=burger;
-// burger.selectAll();
+console.log(burger.selectAll());
 // // burger.updateOne(1,{burger_name:"stupid"});
 // burger.selectAll();
