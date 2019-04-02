@@ -27,6 +27,15 @@ var orm = {
             }
             cb(data);
         });
+    },
+    deleteOne: function(tableName,deleteId,cb){
+        var queryStr="DELETE FROM ?? WHERE ?";
+        connection.query(queryStr,[tableName,{id:deleteId}],function(err,data){
+            if(err){
+                console.log(err);
+            }
+            cb(data);
+        })
     }
 
 

@@ -20,17 +20,39 @@
             <div class="col-md-4"><ol>
     {{#each data}}
     {{#unless devoured}}
-    <li class="text-center">{{burger_name}}
-    <button data-id={{id}} class="ml-4 btn btn-primary devour-button">Devour It!</button></li>
+    <li class="text-center">{{burger_name}}<br>
+    <button data-id={{id}} class="ml-4 btn btn-success devour-button">Devour It!</button></li><br>
     {{/unless}}
     {{/each}}
     </ol>
             </div>
-             <div class="col-md-4"><!--This intentionally left empty--></div>
+             <div class="col-md-4">
+             <form>
+  <div class="form-group text-center">
+    <label for="burger-request">Make a burger</label>
+    <input class="form-control" id="burger-request" placeholder="Enter burger to make">
+  </div>
+  <div class="form-group text-center">
+  <button id="burger-request-btn" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+             
+             
+             
+             </div>
             <div class="col-md-4"><ol>
     {{#each data}}
     {{#if devoured}}
-    <li style="text-decoration:line-through" class="text-center">{{burger_name}}</li>
+    <div class="card">
+    <li style="text-decoration:line-through" class="text-center">{{burger_name}}<br>
+
+    <button data-id={{id}} class="ml-4 btn btn-success remake-button">Make another!</button>
+    <button data-id={{id}} class="ml-4 btn btn-danger delete-button">Take it off the menu!</button>
+
+    
+    </li>
+    </div>
+    <br>
     {{/if}}
     {{/each}}
     </ol></div>
@@ -46,12 +68,44 @@
         $(".devour-button").on("click",function(e){
             e.preventDefault();
             var id=$(this).data("id");
-            console.log(id);
-            var url="/api/"+id;
+            {{!-- console.log(id); --}}
+            var url="/api/burgers/"+id;
             $.ajax({url:url,method:"PUT",data:{devoured:1}}).then(function(response){
                 console.log(response);
+                window.location.reload();
+
             });
-        })
+        });
+        $(".remake-button").on("click",function(e){
+            e.preventDefault();
+            var id=$(this).data("id");
+            {{!-- console.log(id); --}}
+            var url="/api/burgers/"+id;
+            $.ajax({url:url,method:"PUT",data:{devoured:0}}).then(function(response){
+                {{!-- console.log(response); --}}
+                window.location.reload();
+            });
+        });
+        $("#burger-request-btn").on("click",function(e){
+            e.preventDefault();
+            var burgerObj={burgerName: $("#burger-request").val().trim()};
+            $.post({url:"/api/burgers",data:burgerObj})
+            .then(function(response){
+                window.location.reload();
+
+            });
+        });
+        $(".delete-button").on("click",function(e){
+            e.preventDefault();
+           var id=$(this).data("id");
+            {{!-- console.log(id); --}}
+            var url="/api/burgers/"+id;
+            $.ajax({url:url,method:"DELETE"})
+            .then(function(response){
+                window.location.reload();
+
+            });
+        });
     });
 </script>
 </html>

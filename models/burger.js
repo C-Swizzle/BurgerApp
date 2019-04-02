@@ -9,6 +9,9 @@ var burger={
     },
     updateOne:function(idToUpdate,updateObject,cb){
         orm.updateOne("burgers",updateObject,idToUpdate,cb);
+    },
+    deleteOne:function(id,cb){
+        orm.deleteOne("burgers",id,cb);
     }
 };
 module.exports=burger;
@@ -17,5 +20,4 @@ module.exports=burger;
 // });
 // // burger.updateOne(1,{burger_name:"stupid"});
 // burger.selectAll();
-burger.updateOne(1,{devoured:false},function(){}
-);
+// burger.insertOne("something",function(){});
